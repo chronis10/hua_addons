@@ -7,7 +7,7 @@
   "startup": "before",
   "boot": "auto",
   "options": {
-	"external_mqtt": "bool",
+	"external_mqtt": false,
 	"mqtt_username": "",
 	"mqtt_password": "",
 	"entity_name": "sensor.pir",
