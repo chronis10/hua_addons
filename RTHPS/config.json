@@ -6,8 +6,28 @@
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "before",
   "boot": "auto",
-  "options": {},
-  "schema": {},
+  "options": {
+	"external_mqtt": "bool",
+	"mqtt_username": "",
+	"mqtt_password": "",
+	"entity_name": "sensor.pir",
+	"mqtt_sensor_topic": "/hassio/person",
+    "external_db": false,
+    "db_username": "",
+	"db_password": "",
+    "delay": 1000
+	},
+  "schema": {
+	"external_mqtt": "bool",
+	"mqtt_username": "str",
+	"mqtt_password": "str",
+	"mqtt_sensor_topic": "str",
+	"entity_name": "str",
+    "external_db": "bool",
+    "db_username": "str",
+	"db_password": "str",
+    "delay": "int"
+	},
   "ports": {
       "5000/tcp": 5000
     }
