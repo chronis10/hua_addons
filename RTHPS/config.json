@@ -1,0 +1,14 @@
+{
+  "name": "RTHPS",
+  "version": "1",
+  "slug": "rthps",
+  "description": "RTHPS (Real Time Habits Prediction System) Harokopio University - Informatics and Telematics",
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
+  "startup": "before",
+  "boot": "auto",
+  "options": {},
+  "schema": {},
+  "ports": {
+      "5000/tcp": 5000
+    }
+}
