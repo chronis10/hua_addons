@@ -12,11 +12,12 @@
 	"mqtt_password": "",
 	"entity_name": "sensor.pir",
 	"mqtt_sensor_topic": "/hassio/person",
+    "external_db": false,
+    "db_ip": "",
+    "db_username": "sar",
+	"db_password": "",
 	"daysback": 28,
 	"houroffset": 3,
-    "external_db": false,
-    "db_username": "",
-	"db_password": "",
     "delay": 1000
 	},
   "schema": {
@@ -25,11 +26,12 @@
 	"mqtt_password": "str",
 	"mqtt_sensor_topic": "str",
 	"entity_name": "str",
-	"daysback": "int",
-	"houroffset": "int",
     "external_db": "bool",
+    "db_ip": "str",
     "db_username": "str",
 	"db_password": "str",
+	"daysback": "int",
+	"houroffset": "int",
     "delay": "int"
 	},
   "ports": {
