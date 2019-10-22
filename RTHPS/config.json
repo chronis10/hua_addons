@@ -1,6 +1,6 @@
 {
   "name": "RTHPS",
-  "version": "1",
+  "version": "2",
   "slug": "rthps",
   "description": "RTHPS (Real Time Habits Prediction System) Harokopio University - Informatics and Telematics",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
