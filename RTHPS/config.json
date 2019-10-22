@@ -14,7 +14,7 @@
 	"mqtt_sensor_topic": "/hassio/person",
     "external_db": false,
     "db_ip": "",
-    "db_username": "sar",
+    "db_username": "",
 	"db_password": "",
 	"daysback": 28,
 	"houroffset": 3,
