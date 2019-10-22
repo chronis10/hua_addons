@@ -1,3 +1,4 @@
 Flask
 mysql-connector-python
+numpy==1.16.3
 pandas==0.24.1
