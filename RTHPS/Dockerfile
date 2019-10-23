@@ -1,4 +1,4 @@
-FROM amancevice/pandas-alpine
+FROM amancevice/pandas -alpine
 
 ENV LANG C.UTF-8
 
