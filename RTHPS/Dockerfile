@@ -13,5 +13,5 @@ COPY logo.png /
 COPY recommendation_status.py /
 RUN chmod a+x /run.sh
 RUN apk add --no-cache python3
-RUN python3 -m pip install -U -r requirements.txt
+RUN python3 -m pip install -r requirements.txt
 CMD [ "/run.sh" ]
