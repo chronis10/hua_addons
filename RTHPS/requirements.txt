@@ -1,4 +1,6 @@
 Flask
 mysql-connector-python
 numpy==1.16.3
-pandas==0.21.1
+matplotlib==3.0.3
+scipy
+pandas==0.24.1
