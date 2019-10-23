@@ -1,6 +1,6 @@
 {
   "name": "RTHPS",
-  "version": "1",
+  "version": "2",
   "slug": "rthps",
   "description": "RTHPS (Real Time Habits Prediction System) Harokopio University - Informatics and Telematics",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
@@ -13,8 +13,11 @@
 	"entity_name": "sensor.pir",
 	"mqtt_sensor_topic": "/hassio/person",
     "external_db": false,
+    "db_ip": "",
     "db_username": "",
 	"db_password": "",
+	"daysback": 28,
+	"houroffset": 3,
     "delay": 1000
 	},
   "schema": {
@@ -24,8 +27,11 @@
 	"mqtt_sensor_topic": "str",
 	"entity_name": "str",
     "external_db": "bool",
+    "db_ip": "str",
     "db_username": "str",
 	"db_password": "str",
+	"daysback": "int",
+	"houroffset": "int",
     "delay": "int"
 	},
   "ports": {
