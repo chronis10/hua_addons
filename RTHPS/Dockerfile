@@ -9,5 +9,5 @@ COPY requirements.txt /tmp/
 COPY README.md /
 COPY logo.png /
 COPY recommendation_status.py /
-RUN pip install -r /tmp/requirements.txt
+RUN python -m pip install -r /tmp/requirements.txt
 CMD ["python", "app.py"]
