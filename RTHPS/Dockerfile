@@ -10,6 +10,6 @@ COPY README.md /
 COPY logo.png /
 COPY recommendation_status.py /
 RUN apk add --no-cache python3
-apk add --update py-pip
+RUN apk add --update py-pip
 RUN python3 -m pip install -r /requirements.txt
 CMD ["python3", "app.py"]
