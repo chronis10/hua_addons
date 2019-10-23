@@ -10,5 +10,5 @@ COPY README.md /
 COPY logo.png /
 COPY recommendation_status.py /
 RUN apk add --no-cache python3
-RUN python -m pip install -r /requirements.txt
-CMD ["python", "app.py"]
+RUN python3 -m pip install -r /requirements.txt
+CMD ["python3", "app.py"]
