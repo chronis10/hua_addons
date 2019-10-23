@@ -1,4 +1,4 @@
-FROM alpine
+FROM amancevice/pandas
 
 ENV LANG C.UTF-8
 
@@ -9,7 +9,5 @@ COPY requirements.txt /
 COPY README.md /
 COPY logo.png /
 COPY recommendation_status.py /
-RUN apk add --no-cache python3
-RUN apk add py3-setuptools
-RUN python3 -m pip install -r /requirements.txt
-CMD ["python3", "app.py"]
+RUN python -m pip install -r /requirements.txt
+CMD ["python", "app.py"]
