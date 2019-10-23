@@ -13,10 +13,5 @@ COPY logo.png /
 COPY recommendation_status.py /
 RUN chmod a+x /run.sh
 RUN apk add --no-cache python3
-RUN apk add --update curl gcc g++ \
-    && rm -rf /var/cache/apk/*
-
-RUN ln -s /usr/include/locale.h /usr/include/xlocale.h
-
 RUN python3 -m pip install -r requirements.txt
 CMD [ "/run.sh" ]
