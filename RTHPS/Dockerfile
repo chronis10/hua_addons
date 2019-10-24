@@ -1,10 +1,9 @@
-FROM amancevice/pandas
+FROM lsiobase/alpine.python3
 
 ENV LANG C.UTF-8
 
 COPY requirements.txt /tmp/
 
-RUN pip3 install --no-cache-dir --upgrade pip 
 RUN pip install -r /tmp/requirements.txt
 COPY app.py /
 COPY README.md /
