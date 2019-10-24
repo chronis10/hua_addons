@@ -4,8 +4,7 @@ ENV LANG C.UTF-8
 
 COPY requirements.txt /tmp/
 RUN apt-get update
-RUN apt-get install -y libzmq3-dev python3-pip
-RUN python -m pip install --upgrade pip
+RUN pip3 install --no-cache-dir --upgrade pip 
 RUN pip install -r /tmp/requirements.txt
 COPY app.py /
 COPY README.md /
