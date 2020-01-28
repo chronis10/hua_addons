@@ -7,9 +7,11 @@
   "startup": "application",
   "boot": "auto",
   "options": {
-	"external_mqtt": false,
+	"mqtt_server": "localhost",
+	"mqtt_auth" :  true,
 	"mqtt_username": "",
 	"mqtt_password": "",
+	"mqtt_sub_topic" : "tele/rec",
     "external_db": false,
     "db_ip": "",
     "db_username": "",
@@ -17,15 +19,15 @@
 	"telegram_api": ""
 	},
   "schema": {
-	"external_mqtt": "bool",
+  	"mqtt_server": "str",
+	"mqtt_auth" : "bool",
 	"mqtt_username": "str",
 	"mqtt_password": "str",
+	"mqtt_sub_topic" : "str",
     "external_db": "bool",
     "db_ip": "str",
     "db_username": "str",
 	"db_password": "str",
 	"telegram_api":"str"	
-	},
- "ports": {}
-	
+	}
 }

@@ -8,6 +8,11 @@ import random
 incom = {"msg":""}
 req_list = []
 tele_api = ''
+mqtt_auth = False
+mqtt_username = ""
+mqtt_password = ""
+mqtt_server = "localhost"
+mqtt_sub_topic = ""
 
 class requests_obj():
     def __init__(self,userid,title,rec_id):
@@ -82,17 +87,20 @@ def on_message(mosq, obj, msg):
     print(msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
 
 def main():
-    global incom,req_list,tele_api
+    global incom,req_list,tele_api,mqtt_username,mqtt_auth,mqtt_password,mqtt_server,mqtt_sub_topic
+
     updater = Updater(tele_api, use_context=True)
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
     updater.dispatcher.add_error_handler(error)
     updater.start_polling()
     #updater.idle()
     mqttc = mqtt.Client()
-    mqttc.message_callback_add("test/rec", on_message_msgs)    
+    mqttc.message_callback_add(mqtt_sub_topic, on_message_msgs)    
     mqttc.on_message = on_message
-    mqttc.connect("localhost", 1883, 60)
-    mqttc.subscribe("test/rec", 0)
+    if mqtt_auth:
+        mqttc.username_pw_set(mqtt_username, password=mqtt_password)
+    mqttc.connect(mqtt_server, 1883, 60)
+    mqttc.subscribe(mqtt_sub_topic, 0)
     mqttc.loop_start()
     try:
         for i in range(0,100):
@@ -128,7 +136,13 @@ def main():
         mqttc.loop_stop()
 
 if __name__ == '__main__':
-    with open('/data/options.json') as config_file:
+    with open('data/options.json') as config_file:
                 data = json.load(config_file)
-    tele_api = data['telegram_api']
+    tele_api = data['telegram_api']    
+    mqtt_username = data['mqtt_username']    
+    mqtt_password = data['mqtt_password']    
+    mqtt_server = data['mqtt_server']    
+    mqtt_sub_topic = data['mqtt_sub_topic']
+    mqtt_auth = data['mqtt_auth']
+    
     main()
