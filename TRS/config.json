@@ -1,0 +1,31 @@
+{
+  "name": "TRS",
+  "version": "0.1",
+  "slug": "trs",
+  "description": "TRS (Telegram Recomendation Service) Harokopio University - Informatics and Telematics",
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
+  "startup": "application",
+  "boot": "auto",
+  "options": {
+	"external_mqtt": false,
+	"mqtt_username": "",
+	"mqtt_password": "",
+    "external_db": false,
+    "db_ip": "",
+    "db_username": "",
+	"db_password": "",
+	"telegram_users":[],
+	"telegram_api":""
+	},
+  "schema": {
+	"external_mqtt": "bool",
+	"mqtt_username": "str",
+	"mqtt_password": "str",
+    "external_db": "bool",
+    "db_ip": "str",
+    "db_username": "str",
+	"db_password": "str",
+	"telegram_users": "list",
+	"telegram_api":"str"	
+	}
+}
