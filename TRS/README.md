@@ -1,10 +1,28 @@
 # TRS (Telegram Recommendation Service)
 
-### Χαροκόπειο Πανεπιστήμιο - Τμήμα Πληροφορικής και Τηλεματικής
+## Harokopio University - Informatics and Telematics Department
+
+**Experimental Version **
+
+The script accepts json paylod and sends telegram notifications. 
+
+Syntax of paylod:
+
+```json
+{"msg":"new","userid":"telegram_id","title":"Do you want to turn off the PC?"} 
+```
 
 
 
-Δοκιμαστική έκδοση .................................
+You can use the internal or an external mqtt broker.
+
+
+
+
+
+
+
+
 
 
 
