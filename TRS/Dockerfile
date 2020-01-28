@@ -8,4 +8,4 @@ RUN pip install -r /tmp/requirements.txt
 COPY main.py /
 COPY README.md /
 COPY logo.png /
-CMD [ "python", "./main.py" ]
+CMD [ "python","-u","./main.py" ]
