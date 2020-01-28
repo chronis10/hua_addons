@@ -14,8 +14,7 @@
     "db_ip": "",
     "db_username": "",
 	"db_password": "",
-	"telegram_users":[],
-	"telegram_api":""
+	"telegram_api": ""
 	},
   "schema": {
 	"external_mqtt": "bool",
@@ -25,7 +24,8 @@
     "db_ip": "str",
     "db_username": "str",
 	"db_password": "str",
-	"telegram_users": "list",
 	"telegram_api":"str"	
-	}
+	},
+ "ports": {}
+	
 }
