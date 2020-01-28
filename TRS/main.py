@@ -88,7 +88,7 @@ def on_message(mosq, obj, msg):
 
 def main():
     global incom,req_list,tele_api,mqtt_username,mqtt_auth,mqtt_password,mqtt_server,mqtt_sub_topic
-
+    
     updater = Updater(tele_api, use_context=True)
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
     updater.dispatcher.add_error_handler(error)
@@ -102,8 +102,9 @@ def main():
     mqttc.connect(mqtt_server, 1883, 60)
     mqttc.subscribe(mqtt_sub_topic, 0)
     mqttc.loop_start()
+    print("Started")
     try:
-        for i in range(0,100):
+        while True:
             print(incom["msg"])
             if incom["msg"] == "new":                
                 print("Send Recomdetation")
