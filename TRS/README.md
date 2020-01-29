@@ -4,15 +4,14 @@
 
 **Experimental Version **
 
-The script accepts json paylod and sends telegram notifications. 
+The script accepts json paylod and sends telegram notifications.
+
 
 Syntax of payload:
 
 ```json
-{"msg":"new","userid":"telegram_id","title":"Do you want to turn off the PC?"} 
+{"msg":"new","userid":"telegram_id","title":"Do you want to turn off the PC?"}
 ```
-
-
 
 The messges on telegram have the form Accept/Reject. If the user ignore the message for 20 seconds, the system consider the message as Rejected.
 
@@ -22,21 +21,30 @@ The system can handle multiple users.
 
 You can use the internal or an external mqtt broker.
 
+### MYSQL Support
+You can store all the recommendations logs and results on your MYSQL Server.
 
+Create a database and a table with the following columns
 
+* id int(11) AI PK
+* user_id varchar(45)
+* notify_time datetime
+* response_time datetime
+* question varchar(45)
+* response varchar(45)
+* response_log varchar(45)
+* entity varchar(45)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+```sql
+CREATE TABLE `data` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(45) DEFAULT NULL,
+  `notify_time` datetime DEFAULT NULL,
+  `response_time` datetime DEFAULT NULL,
+  `question` varchar(45) DEFAULT NULL,
+  `response` varchar(45) DEFAULT NULL,
+  `response_log` varchar(45) DEFAULT NULL,
+  `entity` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`));
+```
 
