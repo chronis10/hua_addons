@@ -117,8 +117,8 @@ def store_mysql():
                       database= data['db_name'])
                     mycursor = mydb.cursor()
                 mycursor.execute(("INSERT INTO {}.{} (user_id, notify_time, response_time,"
-                 "question, response, response_log, entity) VALUES ('{}','{}',"
-                 "'{}','{}','{}','{}','{}');").format(data['db_name'],
+                 "question, response, response_log, entity,state,domain,service) VALUES ('{}','{}',"
+                 "'{}','{}','{}','{}','{}','{}','{}','{}');").format(data['db_name'],
                                      data['db_table'],
                                      items.userid,
                                      items.time_start,
@@ -126,7 +126,10 @@ def store_mysql():
                                      items.title,
                                      items.response,
                                      items.status,
-                                     items.entity))
+                                     items.entity,
+                                     items.state,
+                                     items.domain,
+                                     items.service))
                 req_list.remove(items)
                 new_data = True
         if new_data:

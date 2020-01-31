@@ -36,25 +36,19 @@ You can store all the recommendations logs and results on your MYSQL Server.
 
 Create a database and a table with the following columns
 
-* id int(11) AI PK
-* user_id varchar(45)
-* notify_time datetime
-* response_time datetime
-* question varchar(45)
-* response varchar(45)
-* response_log varchar(45)
-* entity varchar(45)
-
 ```sql
 CREATE TABLE `data` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` varchar(45) DEFAULT NULL,
   `notify_time` datetime DEFAULT NULL,
   `response_time` datetime DEFAULT NULL,
-  `question` varchar(45) DEFAULT NULL,
+  `question` mediumtext,
   `response` varchar(45) DEFAULT NULL,
   `response_log` varchar(45) DEFAULT NULL,
   `entity` varchar(45) DEFAULT NULL,
+  `state` varchar(45) DEFAULT NULL,
+  `domain` varchar(45) DEFAULT NULL,
+  `service` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`));
 ```
 
