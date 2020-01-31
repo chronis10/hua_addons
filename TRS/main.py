@@ -103,6 +103,7 @@ def store_mysql():
                 if not new_data:
                     mydb = mysql.connector.connect(
                       host= data['db_ip'],
+					  port=data['db_port']
                       user= data['db_username'],
                       passwd= data['db_password'],
                       database= data['db_name'])
