@@ -7,10 +7,11 @@ import json
 import random
 import mysql.connector
 import datetime
+from requests import post
 
 #REQUEST CLASS
 class requests_obj():
-    def __init__(self,userid,title,rec_id,timeout):
+    def __init__(self,userid,title,rec_id,timeout,entity,service,domain):
         self.userid = userid
         self.title = title
         self.response = -1
@@ -19,7 +20,9 @@ class requests_obj():
         self.user_informed = False
         self.rec_id = rec_id
         self.time_finished = None
-        self.entity = "Dummy"
+        self.entity = entity
+        self.service = service
+        self.domain = domain
         self.timeout = timeout
 
     def time_dif(self):
@@ -60,10 +63,10 @@ def button(update, context):
         answer = "Rejected"
     query.edit_message_text(text="Recommendation {}".format(answer))
 
-def getid(update, context):    
+def getid(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text=update.effective_chat.id)
 
-    
+
 def error(update, context):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, context.error)
@@ -133,7 +136,16 @@ def store_mysql():
         print("Database update failed")
         print(e)
 
-
+#HASSIO API
+def send_hassio_command(data,domain,service,entity):
+    url = "{}/api/services/{}/{}".format(data["hassio_ip"],domain,service)
+    headers = {
+    "Authorization": "Bearer " + data["hassio_api"],
+    "content-type": "application/json",
+    }
+    payload = {"entity_id": entity}
+    r = post(url = url, headers=headers, data = json.dumps(payload))
+    print(r)
 
 def main():
     global incom,req_list,data
@@ -156,7 +168,7 @@ def main():
             if incom["msg"] == "new":
                 print("Send Recomdetation")
                 code = str(random.randint(1000,9999))
-                req_list.append(requests_obj(incom['userid'],incom['title'],code,data['timeout']))
+                req_list.append(requests_obj(incom['userid'],incom['title'],code,data['timeout'],incom['entity_id'],incom['service'],incom['domain']))
                 send_message(updater,incom['userid'],code,incom['title'])
                 incom = {"msg":""}
             for item in req_list:
@@ -173,12 +185,13 @@ def main():
                     elif item.status== "Accepted":
                         item.time_finished = datetime.datetime.now()
                         item.user_informed = True
+                        send_hassio_command(data,item.domain,item.service,item.entity)
                 item.status_item()
-                if data['store_on_db']:
-                    store_mysql()
-                else:
-                    clean_buffer()
-            time.sleep(5)
+            if data['store_on_db']:
+                store_mysql()
+            else:
+                clean_buffer()
+            time.sleep(2)
     except KeyboardInterrupt:
         print("Exit")
     #except Exception as e:
