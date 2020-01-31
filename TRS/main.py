@@ -60,6 +60,10 @@ def button(update, context):
         answer = "Rejected"
     query.edit_message_text(text="Recommendation {}".format(answer))
 
+def getid(update, context):    
+    context.bot.send_message(chat_id=update.effective_chat.id, text=update.effective_chat.id)
+
+    
 def error(update, context):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, context.error)
@@ -135,6 +139,7 @@ def main():
     global incom,req_list,data
     updater = Updater(data['telegram_api'], use_context=True)
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
+    updater.dispatcher.add_handler(CommandHandler('getid', getid))
     updater.dispatcher.add_error_handler(error)
     updater.start_polling()
     mqttc = mqtt.Client()
