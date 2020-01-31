@@ -11,7 +11,7 @@ from requests import post
 
 #REQUEST CLASS
 class requests_obj():
-    def __init__(self,userid,title,rec_id,timeout,entity,service,domain):
+    def __init__(self,userid,title,rec_id,timeout,entity,service,domain,state):
         self.userid = userid
         self.title = title
         self.response = -1
@@ -24,6 +24,7 @@ class requests_obj():
         self.service = service
         self.domain = domain
         self.timeout = timeout
+        self.state = state
 
     def time_dif(self):
         dif=abs(datetime.datetime.now() - self.time_start).seconds
@@ -137,13 +138,18 @@ def store_mysql():
         print(e)
 
 #HASSIO API
-def send_hassio_command(data,domain,service,entity):
-    url = "{}/api/services/{}/{}".format(data["hassio_ip"],domain,service)
+def send_hassio_command(data,domain,service,entity,state):
+    
     headers = {
     "Authorization": "Bearer " + data["hassio_api"],
     "content-type": "application/json",
     }
-    payload = {"entity_id": entity}
+    if domain == "state":
+        url = "{}/api/states/{}".format(data["hassio_ip"],entity)
+        payload = {"state": state}
+    else:
+        url = "{}/api/services/{}/{}".format(data["hassio_ip"],domain,service)
+        payload = {"entity_id": entity}        
     r = post(url = url, headers=headers, data = json.dumps(payload))
     print(r)
 
@@ -168,7 +174,7 @@ def main():
             if incom["msg"] == "new":
                 print("Send Recomdetation")
                 code = str(random.randint(1000,9999))
-                req_list.append(requests_obj(incom['userid'],incom['title'],code,data['timeout'],incom['entity_id'],incom['service'],incom['domain']))
+                req_list.append(requests_obj(incom['userid'],incom['title'],code,data['timeout'],incom['entity_id'],incom['service'],incom['domain'],incom['state']))
                 send_message(updater,incom['userid'],code,incom['title'])
                 incom = {"msg":""}
             for item in req_list:
@@ -185,7 +191,7 @@ def main():
                     elif item.status== "Accepted":
                         item.time_finished = datetime.datetime.now()
                         item.user_informed = True
-                        send_hassio_command(data,item.domain,item.service,item.entity)
+                        send_hassio_command(data,item.domain,item.service,item.entity,item.state)
                 item.status_item()
             if data['store_on_db']:
                 store_mysql()

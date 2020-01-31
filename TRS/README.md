@@ -6,11 +6,17 @@
 
 The script accepts json paylod and sends telegram notifications.
 
-
 Syntax of payload:
 
+For switch category entities e.g.: switch.ac_plug
+
 ```json
-{"msg":"new","userid":"telegram_id","title":"Do you want to turn off the PC?","entity_id":"switch.office_light","domain":"switch","service":"turn_off"}
+{"msg":"new","userid":"telegram_id","title":"Do you want to turn off the the AC plug?","entity_id":"switch.ac_plug","domain":"switch","service":"turn_off","state":""}
+```
+For state category entities e.g.: light.office_light , sensor
+
+```json
+{"msg":"new","userid":"telegram_id","title":"Do you want to turn off the Office light?","entity_id":"light.office_light","domain":"state","service":"","state":"off"}
 ```
 
 The messges on telegram have the form Accept/Reject. If the user ignore the message for 20 seconds, the system consider the message as Rejected.
