@@ -1,0 +1,9 @@
+certifi==2019.11.28
+chardet==3.0.4
+dnspython==1.16.0
+idna==2.8
+mysql-connector-python==8.0.19
+protobuf==3.6.1
+requests==2.22.0
+six==1.14.0
+urllib3==1.25.8

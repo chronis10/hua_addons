@@ -1,0 +1,33 @@
+{
+  "name": "HLC",
+  "version": "0.0.1",
+  "slug": "hlc",
+  "description": "HLC (Habits Learning Component) Harokopio University - Informatics and Telematics",
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
+  "startup": "application",
+  "boot": "auto",
+  "options": {
+  "db_ip": "",
+  "db_port" : "3306",
+  "db_username": "",
+  "db_password": "",
+  "db_name" : "",
+  "db_entities": "",
+  "db_recorder": "",
+  "hassio_ip" : "http://domain or ip:8123",
+  "hassio_api" : "",
+  "debug" : true
+	},
+  "schema": {
+  "db_ip": "str",
+  "db_port" : "int",
+  "db_username": "str",
+  "db_password": "str",
+  "db_name": "str",
+  "db_entities" : "str",
+  "db_recorder" : "str",
+  "hassio_ip" :"str",
+  "hassio_api" :"str"
+  "debug" : "bool"
+	}
+}
