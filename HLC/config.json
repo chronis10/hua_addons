@@ -27,7 +27,7 @@
   "db_entities" : "str",
   "db_recorder" : "str",
   "hassio_ip" :"str",
-  "hassio_api" :"str"
+  "hassio_api" :"str",
   "debug" : "bool"
 	}
 }
