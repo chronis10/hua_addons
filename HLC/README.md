@@ -4,16 +4,17 @@
 
 **Experimental Version **
 
-The script every 24h save on db the changes of the states of a component
+The script executed every 24h and saves on the db the changes of the states of an entity, the same time for every state of the entity stores the average values for every connected entity using the table of relations  (e.g. entities_relations ) from the db.
 
-## Home Assistant API direct access
+Example of a Record on the record_habits table:
 
-That addon can control all the Home Assistant entities using a generated API key. 
+| id   |    entity_id  |time_changed|state|context|
+| ---- | ---- | ---- |---- |---- |
+| 1 | switch.water_heater |2020-02-05 00:00:00|off|[{\"entity_id\": \"sensor.living_room_humidity\", \"state\": 46.0}, {\"entity_id\": \"sensor.living_room_temperature\", \"state\": 20.0}]|
 
-### MYSQL Support
-You can store all the data on your MYSQL Server.
+## MySQL
 
-Create a database and a table with the following columns
+You should manually create a database and the following two tables.
 
 Table for habits recording
 
@@ -36,3 +37,19 @@ CREATE TABLE `entities_relations` (
   `entities` json NOT NULL,
   PRIMARY KEY (`id`));
 ```
+
+You should also insert the entities relations manually on the table.
+
+```mysql
+INSERT INTO `recommendations`.`entities_relations` (`key_entity`, `entities`) VALUES ('switch.water_heater', '[{"entity_id":"sensor.living_room_humidity"},{"entity_id":"sensor.living_room_temperature"}]');
+
+```
+
+## Home Assistant API direct access
+
+That addon use the REST API functionality of Home Assistant using a generated API key. 
+
+## Debug
+
+For debugging  set the debug : true and start the component, the script executed immediately and only for one time . 
+
