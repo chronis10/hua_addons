@@ -24,8 +24,8 @@ def get_hassio_data(data,entity_id,query_day):
     else:
         return None
 
-def get_hassio_around(data,entity_id,query_day,time_delta):
-    start_period = query_day + timedelta(seconds=time_delta)
+def get_hassio_around(data,entity_id,query_day):
+    start_period = query_day + timedelta(seconds=data["time_delta"])
     #- delta time
     #end_period = query_day - timedelta(seconds=time_delta)
     s_period = start_period.strftime('%Y-%m-%dT%H:%M:%S')
@@ -41,23 +41,31 @@ def get_hassio_around(data,entity_id,query_day,time_delta):
     "end_time={}%2B00%3A00"
     "&filter_entity_id={}").format(data["hassio_ip"],s_period,e_period,entity_id)
     r = get(url = url, headers=headers)
-    for item in r.json()[0]:
-        if item['state'] != 'unavailable':
-            datetimeObj = datetime.strptime(item['last_changed'].split('+')[0].split('.')[0], '%Y-%m-%dT%H:%M:%S')
-            changes.append({'entity_id':item['entity_id'],'last_changed':datetimeObj,'state':item['state']})
-    return changes
+    if len(r.json())>0:
+        for item in r.json()[0]:
+            if item['state'] != 'unavailable':
+                datetimeObj = datetime.strptime(item['last_changed'].split('+')[0].split('.')[0], '%Y-%m-%dT%H:%M:%S')
+                changes.append({'entity_id':item['entity_id'],'last_changed':datetimeObj,'state':item['state']})
+        return changes
+    else:
+        return None
 
 def make_average(value_list):
     sum = 0
-    for i,it in enumerate(value_list):
-        if it['state'] == 'on':
-            sum += 1
-        elif it['state'] == 'off':
-            pass
-        else:
-            sum += float(it['state'])
-    value = sum/(i+1)
-    return value
+    print(value_list)
+    if 'weather' in value_list[0]['entity_id'] or 'sun' in value_list[0]['entity_id']:
+        return value_list[0]['state']
+    else:
+        for i,it in enumerate(value_list):
+            
+            if it['state'] == 'on':
+                sum += 1
+            elif it['state'] == 'off':
+                pass
+            else:
+                sum += float(it['state'])
+        value = sum/(i+1)
+        return value
 
 
 def get_entities(data):
@@ -97,13 +105,13 @@ def main(data,query_day):
     for entity in entities_list:
         print(entity[1])
         changes = get_hassio_data(data,entity[1],query_day)
-        if changes != None:
+        if changes is not None:
             for items in changes:
                 temp_main = []
                 temp_main.append(items)
                 temp_sub = []
                 for et in json.loads(entity[2]):
-                    re = get_hassio_around(data,et['entity_id'],items['last_changed'],900)
+                    re = get_hassio_around(data,et['entity_id'],items['last_changed'])
                     temp_sub.append({'entity_id':et['entity_id'],'state':make_average(re)})
                 temp_main.append(temp_sub)
                 for_export.append(temp_main)
